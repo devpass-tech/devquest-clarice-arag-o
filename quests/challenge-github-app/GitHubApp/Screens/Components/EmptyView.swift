@@ -13,7 +13,7 @@ final class EmptyView: UIView {
     private var emptyMessageLabel: UILabel = {
 
         let label = UILabel()
-        label.text = "#TODO: Insert message here"
+        label.text = "No repositories found"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.darkGray
         label.font = UIFont.systemFont(ofSize: 17)

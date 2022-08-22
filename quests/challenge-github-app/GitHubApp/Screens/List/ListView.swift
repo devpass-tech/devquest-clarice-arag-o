@@ -33,7 +33,13 @@ final class ListView: UIView {
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         return emptyView
     }()
-
+    
+    private var loadingView: LoadingView = {
+        let loadingView = LoadingView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        return loadingView
+    }()
+    
     init() {
 
         super.init(frame: .zero)
@@ -60,6 +66,7 @@ private extension ListView {
 
         addSubview(self.tableView)
         addSubview(self.emptyView)
+        addSubview(self.loadingView)
     }
 
     func configureSubviewsConstraints() {

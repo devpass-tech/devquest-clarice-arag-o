@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		747D399428B41CBF00AFD1E8 /* ViewCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D399328B41CBF00AFD1E8 /* ViewCodeProtocol.swift */; };
 		98252C21279200C900199ECC /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98252C20279200C900199ECC /* Repository.swift */; };
 		9826D8BE2788B40800E05400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9826D8BD2788B40800E05400 /* Assets.xcassets */; };
 		9826D8C12788B40800E05400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9826D8BF2788B40800E05400 /* LaunchScreen.storyboard */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		747D399328B41CBF00AFD1E8 /* ViewCodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocol.swift; sourceTree = "<group>"; };
 		98252C20279200C900199ECC /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		9826D8B12788B40600E05400 /* GitHubApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9826D8BD2788B40800E05400 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		747D399228B41C1900AFD1E8 /* ViewConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				747D399328B41CBF00AFD1E8 /* ViewCodeProtocol.swift */,
+			);
+			path = ViewConfiguration;
+			sourceTree = "<group>";
+		};
 		9826D8A82788B40600E05400 = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +178,7 @@
 		9826D8F12788B43F00E05400 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				747D399228B41C1900AFD1E8 /* ViewConfiguration */,
 				D16FF2DF289856AC00F08BD2 /* Components */,
 				9826D8F22788B43F00E05400 /* Settings */,
 				9826D8F42788B43F00E05400 /* Detail */,
@@ -351,6 +362,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9826D8FE2788B43F00E05400 /* Service.swift in Sources */,
+				747D399428B41CBF00AFD1E8 /* ViewCodeProtocol.swift in Sources */,
 				D16FF2E1289856CA00F08BD2 /* EmptyView.swift in Sources */,
 				9826D90A2788B48000E05400 /* AppDelegate.swift in Sources */,
 				9826D90B2788B48000E05400 /* SceneDelegate.swift in Sources */,

@@ -32,13 +32,13 @@ final class LoadingView: UIView, ViewConfiguration {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
-        }()
+    }()
 
     func buildSubviews() {
         addSubview(stackView)
         stackView.addArrangedSubview(loadingViewLabel)
         stackView.addArrangedSubview(activityIndicator)
-       }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

@@ -44,13 +44,13 @@ final class EmptyView: UIView, ViewConfiguration {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
-        }()
+    }()
 
     func buildSubviews() {
         addSubview(stackView)
         stackView.addArrangedSubview(emptyMessageLabel)
         stackView.addArrangedSubview(descriptionMessageLabel)
-       }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

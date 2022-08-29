@@ -11,7 +11,7 @@ import UIKit
 final class EmptyView: UIView, ViewConfiguration {
     
     private var emptyMessageLabel: UILabel = {
-
+        
         let label = UILabel()
         label.text = "No repositories found"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ final class EmptyView: UIView, ViewConfiguration {
     }()
 
     private var descriptionMessageLabel: UILabel = {
-
+        
         let label = UILabel()
         label.text = "Search for users to see their public repositories here!"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +37,7 @@ final class EmptyView: UIView, ViewConfiguration {
     }()
 
     private lazy var stackView: UIStackView = {
+        
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -44,30 +45,17 @@ final class EmptyView: UIView, ViewConfiguration {
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
-        }()
+    }()
 
     func buildViews() {
+        
         addSubview(stackView)
         stackView.addArrangedSubview(emptyMessageLabel)
         stackView.addArrangedSubview(descriptionMessageLabel)
-       }
-    
-/*    init() {
-        
-        super.init(frame: .zero)
-
-        self.configureSubviews()
-        self.configureConstraints()
-        
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    */
-    
-    
+  
     override init(frame: CGRect) {
+        
         super.init(frame: .zero)
         setupSubviews()
     }
@@ -80,9 +68,6 @@ final class EmptyView: UIView, ViewConfiguration {
     func configureSubviews() {
         
         self.backgroundColor = .white
-        
-       // self.addSubview(self.emptyMessageLabel)
-       // self.addSubview(self.descriptionMessageLabel)
     }
     
     func configureConstraints() {

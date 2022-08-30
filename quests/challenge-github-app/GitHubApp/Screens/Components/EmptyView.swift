@@ -11,7 +11,7 @@ import UIKit
 final class EmptyView: UIView, ViewConfiguration {
     
     private var emptyMessageLabel: UILabel = {
-
+        
         let label = UILabel()
         label.text = "No repositories found"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ final class EmptyView: UIView, ViewConfiguration {
     }()
 
     private var descriptionMessageLabel: UILabel = {
-
+        
         let label = UILabel()
         label.text = "Search for users to see their public repositories here!"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +37,7 @@ final class EmptyView: UIView, ViewConfiguration {
     }()
 
     private lazy var stackView: UIStackView = {
+        
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -47,12 +48,14 @@ final class EmptyView: UIView, ViewConfiguration {
     }()
 
     func buildSubviews() {
+
         addSubview(stackView)
         stackView.addArrangedSubview(emptyMessageLabel)
         stackView.addArrangedSubview(descriptionMessageLabel)
     }
     
     override init(frame: CGRect) {
+        
         super.init(frame: .zero)
         setupSubviews()
     }
@@ -65,7 +68,7 @@ final class EmptyView: UIView, ViewConfiguration {
     func configureSubviews() {
         
         self.backgroundColor = .white
-        
+
     }
     
     func configureConstraints() {

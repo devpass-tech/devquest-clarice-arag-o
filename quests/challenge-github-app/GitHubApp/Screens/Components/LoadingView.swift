@@ -22,7 +22,11 @@ final class LoadingView: UIView, ViewConfiguration {
         return label
     }()
     
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    private var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .large)
+        view.startAnimating()
+        return view
+    }()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -67,4 +71,11 @@ final class LoadingView: UIView, ViewConfiguration {
         
     }
     
+}
+
+extension LoadingView {
+    
+    func updateView(with configuration: LoadingViewConfiguration) {
+        self.loadingViewLabel.text = configuration.description
+    }
 }

@@ -1,61 +1,50 @@
 //
-//  EmptyView.swift
+//  LoadingView.swift
 //  GitHubApp
 //
-//  Created by Rodrigo Borges on 01/08/22.
+//  Created by clarice aragão on 22/08/22.
 //
 
 import Foundation
 import UIKit
 
-final class EmptyView: UIView, ViewConfiguration {
+final class LoadingView: UIView, ViewConfiguration {
     
-    private var emptyMessageLabel: UILabel = {
-        
+    private var loadingViewLabel: UILabel = {
         let label = UILabel()
-        label.text = "No repositories found"
+        label.text = "Searching repositories…"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.darkGray
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 2
         label.textAlignment = .center
         
         return label
     }()
-
-    private var descriptionMessageLabel: UILabel = {
-        
-        let label = UILabel()
-        label.text = "Search for users to see their public repositories here!"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.systemGray
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        
-        return label
+    
+    private var activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .large)
+        view.startAnimating()
+        return view
     }()
-
+    
     private lazy var stackView: UIStackView = {
-        
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = 8
+        stackView.spacing = 14
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
 
     func buildSubviews() {
-
         addSubview(stackView)
-        stackView.addArrangedSubview(emptyMessageLabel)
-        stackView.addArrangedSubview(descriptionMessageLabel)
+        stackView.addArrangedSubview(loadingViewLabel)
+        stackView.addArrangedSubview(activityIndicator)
     }
     
     override init(frame: CGRect) {
-        
         super.init(frame: .zero)
         setupSubviews()
     }
@@ -68,7 +57,7 @@ final class EmptyView: UIView, ViewConfiguration {
     func configureSubviews() {
         
         self.backgroundColor = .white
-
+        
     }
     
     func configureConstraints() {
@@ -82,4 +71,11 @@ final class EmptyView: UIView, ViewConfiguration {
         
     }
     
+}
+
+extension LoadingView {
+    
+    func updateView(with configuration: LoadingViewConfiguration) {
+        self.loadingViewLabel.text = configuration.description
+    }
 }

@@ -15,7 +15,17 @@ final class ListViewController: UIViewController {
         return listView
     }()
 
+    private let loadingView = LoadingView()
+
+    private let emptyView: EmptyView = {
+    
+        let emptyView = EmptyView()
+        return emptyView
+    }()
+
     private let service = Service()
+    
+    private let searchController = UISearchController()
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -29,15 +39,18 @@ final class ListViewController: UIViewController {
     override func viewDidLoad() {
 
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "GitHub App 🐙"
+                self.navigationItem.title = "Repositories"
+                self.navigationItem.searchController = searchController
+                
+                self.searchController.searchBar.placeholder = "Type a GitHub user name"
+                
+        self.loadingView.updateView(with: LoadingViewConfiguration(description: "Searching repositories..."))
     }
 
     override func viewDidAppear(_ animated: Bool) {
 
         service.fetchList { repositories in
-
             DispatchQueue.main.async {
-
                 self.listView.updateView(with: repositories)
             }
         }

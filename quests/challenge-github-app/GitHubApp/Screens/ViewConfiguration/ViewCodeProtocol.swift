@@ -10,14 +10,14 @@ import Foundation
 protocol ViewConfiguration: AnyObject {
     func setupSubviews()
     func configureSubviews()
-    func buildViews()
+    func buildSubviews()
     func configureConstraints()
 }
 
 extension ViewConfiguration {
     func setupSubviews() {
         self.configureSubviews()
-        self.buildViews()
+        self.buildSubviews()
         self.configureConstraints()
 
     }

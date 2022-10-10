@@ -48,12 +48,13 @@ final class ListViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-
-        service.fetchList { repositories in
+        self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
+        
+   /*     service.fetchList { repositories in
             DispatchQueue.main.async {
                 self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
             }
-        }
+        }*/
 
     }
 

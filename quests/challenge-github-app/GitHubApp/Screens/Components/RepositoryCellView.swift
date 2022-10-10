@@ -39,6 +39,7 @@ class RepositoryCellView: UITableViewCell, ViewConfiguration {
     private lazy var stackView: UIStackView = {
      
         let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         
         return stackView
@@ -47,7 +48,7 @@ class RepositoryCellView: UITableViewCell, ViewConfiguration {
     func buildSubviews() {
         accessoryType = .disclosureIndicator
         
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.addArrangedSubview(repositoryName)
         stackView.addArrangedSubview(userRepositoryName)
     }
@@ -75,13 +76,13 @@ class RepositoryCellView: UITableViewCell, ViewConfiguration {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 17),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -17),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
     
     func updateView(with configuration: RepositoryCellViewConfiguration) {
-           repositoryName.text = configuration.name
+        repositoryName.text = configuration.name
         userRepositoryName.text = configuration.owner
        }
 }

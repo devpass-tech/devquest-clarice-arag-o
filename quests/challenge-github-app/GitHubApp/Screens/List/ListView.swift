@@ -24,6 +24,7 @@ final class ListView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(RepositoryCellView.self, forCellReuseIdentifier: RepositoryCellView.cellIdentifier)
         tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
 
@@ -38,13 +39,6 @@ final class ListView: UIView {
         let loadingView = LoadingView()
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         return loadingView
-    }()
-    
-    private var repositoryCellView: RepositoryCellView = {
-        
-        let repositoryCellView = RepositoryCellView()
-        repositoryCellView.translatesAutoresizingMaskIntoConstraints = false
-        return repositoryCellView
     }()
     
     init() {
@@ -105,11 +99,14 @@ extension ListView: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier:RepositoryCellView.cellIdentifier) as! RepositoryCellView
-        if indexPath.row < listItems.count {
             let item = listItems[indexPath.row]
             cell.updateView(with: item)
-        }
         return cell
     }
 }
 
+extension ListView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+}

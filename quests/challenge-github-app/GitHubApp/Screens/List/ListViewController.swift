@@ -39,21 +39,22 @@ final class ListViewController: UIViewController {
     override func viewDidLoad() {
 
         self.navigationController?.navigationBar.prefersLargeTitles = true
-                self.navigationItem.title = "Repositories"
-                self.navigationItem.searchController = searchController
+        self.navigationItem.title = "Repositories"
+        self.navigationItem.searchController = searchController
                 
-                self.searchController.searchBar.placeholder = "Type a GitHub user name"
+        self.searchController.searchBar.placeholder = "Type a GitHub user name"
                 
         self.loadingView.updateView(with: LoadingViewConfiguration(description: "Searching repositories..."))
     }
 
     override func viewDidAppear(_ animated: Bool) {
-
-        service.fetchList { repositories in
+        self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
+        
+   /*     service.fetchList { repositories in
             DispatchQueue.main.async {
-                self.listView.updateView(with: repositories)
+                self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
             }
-        }
+        }*/
 
     }
 

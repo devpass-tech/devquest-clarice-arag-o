@@ -9,21 +9,22 @@ import UIKit
 
 struct ListViewConfiguration {
 
-    let listItems: [String]
+    let listItems: [RepositoryCellViewConfiguration]
 }
 
 final class ListView: UIView {
 
     private let listViewCellIdentifier = "ListViewCellIdentifier"
 
-    private var listItems: [String] = []
+    private var listItems: [RepositoryCellViewConfiguration] = []
 
     private lazy var tableView: UITableView = {
 
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.listViewCellIdentifier)
+        tableView.register(RepositoryCellView.self, forCellReuseIdentifier: RepositoryCellView.cellIdentifier)
         tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
 
@@ -65,8 +66,6 @@ private extension ListView {
     func configureSubviews() {
 
         addSubview(self.tableView)
-        addSubview(self.emptyView)
-        addSubview(self.loadingView)
     }
 
     func configureSubviewsConstraints() {
@@ -76,24 +75,14 @@ private extension ListView {
             self.tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             self.tableView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-            self.emptyView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.emptyView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.emptyView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.emptyView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-            self.loadingView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.loadingView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            self.loadingView.topAnchor.constraint(equalTo: self.topAnchor),
-            self.loadingView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 }
 
 extension ListView {
 
-    func updateView(with repositories: [String]) {
+    func updateView(with repositories: [RepositoryCellViewConfiguration]) {
 
         self.listItems = repositories
         self.tableView.reloadData()
@@ -109,9 +98,15 @@ extension ListView: UITableViewDataSource {
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.listViewCellIdentifier)!
-        cell.textLabel?.text = self.listItems[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier:RepositoryCellView.cellIdentifier) as! RepositoryCellView
+            let item = listItems[indexPath.row]
+            cell.updateView(with: item)
         return cell
     }
 }
 
+extension ListView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+}

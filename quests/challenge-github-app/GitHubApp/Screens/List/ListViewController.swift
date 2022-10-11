@@ -37,25 +37,38 @@ final class ListViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-
+        super.viewDidLoad()
+        
+        self.fetchList()
+        
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "Repositories"
         self.navigationItem.searchController = searchController
-                
+         
         self.searchController.searchBar.placeholder = "Type a GitHub user name"
-                
+         
         self.loadingView.updateView(with: LoadingViewConfiguration(description: "Searching repositories..."))
+    }
+    
+    private func fetchUser() {
+        
+        self.service.fetchUser("rdgborges") { user in
+            print(user)
+        }
+    }
+    
+    private func fetchList() {
+        
+        self.service.fetchList("rdgborges") { repositories in
+           
+            print(repositories?.first?.name)
+            print(repositories?.first?.owner.avatarUrl)
+            print(repositories?.first?.owner.login)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
-        
-   /*     service.fetchList { repositories in
-            DispatchQueue.main.async {
-                self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
-            }
-        }*/
-
     }
 
     override func loadView() {

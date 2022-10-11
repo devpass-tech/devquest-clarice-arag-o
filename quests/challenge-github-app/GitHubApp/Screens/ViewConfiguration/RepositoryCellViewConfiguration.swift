@@ -9,5 +9,5 @@ import Foundation
 
 struct RepositoryCellViewConfiguration {
     let name: String
-    let owner:  String
+    let owner: String
 }

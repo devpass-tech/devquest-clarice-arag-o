@@ -63,6 +63,7 @@ final class ListViewController: UIViewController {
            
             print(repositories?.first?.name)
             print(repositories?.first?.owner.avatarUrl)
+            print(repositories?.first?.owner.login)
         }
     }
 

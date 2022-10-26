@@ -68,16 +68,18 @@ final class ListViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        service.fetchList("dgborges") { result in
-            do {
-                let repositories = try result.get()
-                let models = repositories.map { Service(name: $0.name, owner: $0.owner.login) }
-                DispatchQueue.main.async {
-                    self.listView.updateView(with: models)
-                }
+        
+        service.fetchList("rdgborges") { result in
+            
+            guard let result = result else {
+                return
             }
-            catch {
-                print(error.localizedDescription)
+            
+            let configurations = result.map { RepositoryCellViewConfiguration(name: $0.name,
+                                                                              owner: $0.owner.login) }
+            DispatchQueue.main.async {
+                
+                self.listView.updateView(with: configurations)
             }
         }
     }

@@ -7,20 +7,12 @@
 
 import UIKit
 
-final class ListViewController: UIViewController, UISearchBarDelegate, UISearchResultsUpdating {
+final class ListViewController: UIViewController, UISearchBarDelegate {
     
     private let listView: ListView = {
 
         let listView = ListView()
         return listView
-    }()
-
-    private let loadingView = LoadingView()
-
-    private let emptyView: EmptyView = {
-    
-        let emptyView = EmptyView()
-        return emptyView
     }()
 
     private let service = Service()
@@ -45,45 +37,25 @@ final class ListViewController: UIViewController, UISearchBarDelegate, UISearchR
         
         searchController.searchBar.placeholder = "Type a GitHub user name"
         searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = self
         
-        loadingView.updateView(with: LoadingViewConfiguration(description: "Searching repositories..."))
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchController.searchBar.text else {
             return
         }
-        
+
         service.fetchList(text) { result in
             guard let result = result else {
                 return
             }
-            
+
             let configurations = result.map { RepositoryCellViewConfiguration(name: $0.name,
                                                                               owner: $0.owner.login) }
             DispatchQueue.main.async {
                 self.listView.updateView(with: configurations)
             }
         }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        
-//        let text = searchController.searchBar.text
-//        print("äsdfasdfasdfasdf")
-//
-//        service.fetchList("rdgborges") { result in
-//            guard let result = result else {
-//                return
-//            }
-//
-//            let configurations = result.map { RepositoryCellViewConfiguration(name: $0.name,
-//                                                                              owner: $0.owner.login) }
-//            DispatchQueue.main.async {
-//                self.listView.updateView(with: configurations)
-//            }
-//        }
     }
 
     override func loadView() {

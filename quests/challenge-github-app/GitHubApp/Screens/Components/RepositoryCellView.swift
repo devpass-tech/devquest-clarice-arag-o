@@ -85,4 +85,5 @@ class RepositoryCellView: UITableViewCell, ViewConfiguration {
         repositoryName.text = configuration.name
         userRepositoryName.text = configuration.owner
        }
+    
 }

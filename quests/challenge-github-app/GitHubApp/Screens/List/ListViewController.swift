@@ -7,20 +7,12 @@
 
 import UIKit
 
-final class ListViewController: UIViewController {
-
+final class ListViewController: UIViewController, UISearchBarDelegate {
+    
     private let listView: ListView = {
 
         let listView = ListView()
         return listView
-    }()
-
-    private let loadingView = LoadingView()
-
-    private let emptyView: EmptyView = {
-    
-        let emptyView = EmptyView()
-        return emptyView
     }()
 
     private let service = Service()
@@ -35,40 +27,35 @@ final class ListViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.fetchList()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Repositories"
+        navigationItem.searchController = searchController
         
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Repositories"
-        self.navigationItem.searchController = searchController
-         
-        self.searchController.searchBar.placeholder = "Type a GitHub user name"
-         
-        self.loadingView.updateView(with: LoadingViewConfiguration(description: "Searching repositories..."))
+        searchController.searchBar.placeholder = "Type a GitHub user name"
+        searchController.searchBar.delegate = self
+        
     }
     
-    private func fetchUser() {
-        
-        self.service.fetchUser("rdgborges") { user in
-            print(user)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchController.searchBar.text else {
+            return
         }
-    }
-    
-    private func fetchList() {
-        
-        self.service.fetchList("rdgborges") { repositories in
-           
-            print(repositories?.first?.name)
-            print(repositories?.first?.owner.avatarUrl)
-            print(repositories?.first?.owner.login)
-        }
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        self.listView.updateView(with: [RepositoryCellViewConfiguration(name: "Repository1", owner: "Teste" )])
+        service.fetchList(text) { result in
+            guard let result = result else {
+                return
+            }
+
+            let configurations = result.map { RepositoryCellViewConfiguration(name: $0.name,
+                                                                              owner: $0.owner.login) }
+            DispatchQueue.main.async {
+                self.listView.updateView(with: configurations)
+            }
+        }
     }
 
     override func loadView() {
